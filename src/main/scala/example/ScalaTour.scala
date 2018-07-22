@@ -2,7 +2,18 @@ package example
 
 object ScalaTour {
   def main(args: Array[String]): Unit = {
-    val message = "Hello World"
-    println(message)
+    fizzBuzz(100)
+  }
+
+  def fizzBuzz(n: Int): Unit = for {i <- 1 to n} {
+    if (i % 15 == 0) {
+      println("FizzBuzz")
+    } else if (i % 5 == 0) {
+      println("Buzz")
+    } else if (i % 3 == 0) {
+      println("Fizz")
+    } else {
+      println(i)
+    }
   }
 }
