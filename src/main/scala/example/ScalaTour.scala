@@ -5,7 +5,7 @@ object ScalaTour {
     fizzBuzz(100)
   }
 
-  def fizzBuzz(n: Int): Unit = for {i <- 1 to n} {
+  def fizzBuzz(n: Int, i: Int = 1): Unit = {
     i match {
       case x if x % 15 == 0 =>
         println("FizzBuzz")
@@ -16,5 +16,7 @@ object ScalaTour {
       case x =>
         println(x)
     }
+
+    if (i < n) fizzBuzz(n, i + 1)
   }
 }
