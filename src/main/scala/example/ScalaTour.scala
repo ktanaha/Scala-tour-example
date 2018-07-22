@@ -1,9 +1,27 @@
 package example
 
 object ScalaTour {
+
+  abstract class Polygon(edges: List[Int]) {
+    val n = edges.length
+    val area: Double
+  }
+
+  class Triangle(edges: List[Int]) extends Polygon(edges) {
+    val a = edges(0)
+    val b = edges(1)
+    val c = edges(2)
+
+    val area = {
+      val s = (a + b + c) / 2.0
+      math.sqrt(s * (s - a) * (s - b) * (s - c))
+    }
+  }
+
   def main(args: Array[String]): Unit = {
-    //fizzBuzz(100)
-    println(fib(13))
+    val edges = List(3, 4, 5)
+    val triangle = new Triangle(edges)
+    println(triangle.area)
   }
 
   def fizzBuzz(n: Int, i: Int = 1): Unit = {
