@@ -18,10 +18,51 @@ object ScalaTour {
     }
   }
 
+  trait Color {
+    val red: Int
+    val green: Int
+    val blue: Int
+    
+    def printColor(): Unit = println(s"$red-$green-$blue")
+  }
+
+  trait Blue extends Color {
+    override val red = 0
+    override val green = 0
+    override val blue = 255
+  }
+
+ trait Yellow extends Color {
+    override val red = 255
+    override val green = 255
+    override val blue = 0
+  }
+
+  trait Transparency {
+    val alpha: Double
+  }
+  
+  trait Frosted extends Transparency {
+    override val alpha = 0.5
+  }
+
+  class BlueFrostedTriangle(edges: List[Int])
+      extends Polygon(edges) with Blue with Frosted {
+    val a = edges(0)
+    val b = edges(1)
+    val c = edges(2)
+
+    val area = {
+      val s = (a + b + c) / 2.0
+      math.sqrt(s * (s - a) * (s - b) * (s - c))
+    }
+  }
+
   def main(args: Array[String]): Unit = {
     val edges = List(3, 4, 5)
-    val triangle = new Triangle(edges)
-    println(triangle.area)
+    val blueFrostedTriangle = new BlueFrostedTriangle(edges)
+    blueFrostedTriangle.printColor()
+    println(blueFrostedTriangle.alpha)
   }
 
   def fizzBuzz(n: Int, i: Int = 1): Unit = {
