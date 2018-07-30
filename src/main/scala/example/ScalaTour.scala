@@ -2,8 +2,17 @@ package example
 
 object ScalaTour {
 
+  object Polygon {
+
+    def fromEdges(edges: List[Int]): Option[Polygon] =
+      edges.length match {
+        case 3 => Some(new Triangle(edges))
+        case x => None
+      }
+  }
+
   abstract class Polygon(edges: List[Int]) {
-    val n = edges.length
+    val n = edges.size
     val area: Double
   }
 
@@ -18,60 +27,32 @@ object ScalaTour {
     }
   }
 
-  trait Color {
-    val red: Int
-    val green: Int
-    val blue: Int
-    
-    def printColor(): Unit = println(s"$red-$green-$blue")
-  }
-
-  trait Blue extends Color {
-    override val red = 0
-    override val green = 0
-    override val blue = 255
-  }
-
- trait Yellow extends Color {
-    override val red = 255
-    override val green = 255
-    override val blue = 0
-  }
-
-  trait Transparency {
-    val alpha: Double
-  }
-  
-  trait Frosted extends Transparency {
-    override val alpha = 0.5
-  }
-
-  class BlueFrostedTriangle(edges: List[Int])
-      extends Polygon(edges) with Blue with Frosted {
-    val a = edges(0)
-    val b = edges(1)
-    val c = edges(2)
-
-    val area = {
-      val s = (a + b + c) / 2.0
-      math.sqrt(s * (s - a) * (s - b) * (s - c))
-    }
-  }
-
   def main(args: Array[String]): Unit = {
-    val n = 15
-    val numbers = (1 to n).toList
-    val fizzBuzzList = toFizzBuzz(numbers)
-    fizzBuzzList.foreach(s => println(s))
+    val invalidEdges2 = List(3, 4)
+    val invalidPolygon2 = Polygon.fromEdges(invalidEdges2)
+
+    println(invalidPolygon2)
+
+    val invalidEdges3 = List(3, 4, 5)
+    val invalidPolygon3 = Polygon.fromEdges(invalidEdges3)
+
+    println(invalidPolygon3)
   }
 
-  def toFizzBuzz(numbers: List[Int]): List[String] =
-    numbers.map((i: Int) => i match {
+}
+
+object FizzBuzz {
+
+  def toFizzBuzz(numbers: List[Int]): List[String] = {
+    val f: Int => String = (i: Int) => i match {
       case x if x % 15 == 0 => "FizzBuzz"
       case x if x % 3 == 0 => "Fizz"
       case x if x % 5 == 0 => "Buzz"
       case x => x.toString
-    })
+    }
+
+    numbers.map(f)
+  }
 
   def fizzBuzz(n: Int, i: Int = 1): Unit = {
     i match {
