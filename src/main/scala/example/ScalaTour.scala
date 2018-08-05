@@ -3,9 +3,6 @@ package example
 import sbt.io.IO
 import java.io.File
 
-import org.json4s._
-import org.json4s.JsonDSL._
-import org.json4s.jackson._
 import org.json4s.jackson.Serialization.{read, write}
 
 object ScalaTour {
